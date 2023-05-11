@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "fs98/clockodo-client",
+    "description": "This package provides a set of Laravel-specific features and utilities that simplify the process of integrating Clockodo into your Laravel application.",
     "keywords": [
-        ":vendor_name",
+        "fs98",
         "laravel",
-        ":package_slug"
+        "clockodo-client"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/fs98/clockodo-client",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Fata Sefer",
+            "email": "sefer.fata@gmail.com",
             "role": "Developer"
         }
     ],
@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "Fs98\\Clockodo\\": "src/",
+            "Fs98\\Clockodo\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/"
+            "Fs98\\Clockodo\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -61,10 +61,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Fs98\\Clockodo\\ClockodoServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "Clockodo": "Fs98\\Clockodo\\Facades\\Clockodo"
             }
         }
     },
