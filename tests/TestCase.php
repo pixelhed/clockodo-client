@@ -2,9 +2,9 @@
 
 namespace Fs98\Clockodo\Tests;
 
+use Fs98\Clockodo\ClockodoServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Fs98\Clockodo\ClockodoServiceProvider;
 
 class TestCase extends Orchestra
 {

@@ -2,9 +2,9 @@
 
 namespace Fs98\Clockodo;
 
+use Fs98\Clockodo\Commands\ClockodoCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Fs98\Clockodo\Commands\ClockodoCommand;
 
 class ClockodoServiceProvider extends PackageServiceProvider
 {
