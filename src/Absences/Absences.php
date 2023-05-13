@@ -3,22 +3,31 @@
 namespace Fs98\ClockodoClient\Absences;
 
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\Response;
 
 class Absences
 {
   protected $clockodoHeaders;
+  protected $clockodoApiUrl;
 
   public function __construct()
   {
     $this->clockodoHeaders = Config::get('clockodo-client.headers');
+    $this->clockodoApiUrl = Config::get('clockodo-client.api_url');
   }
 
-  public function get()
+  public function get(int $year, array $optionalParameters = []): Response
   {
-    // Implementation for fetching absences from Clockodo API
-    // Return the retrieved absences
-    return $this->clockodoHeaders;
-    return $this;
+    $clockodoResponse = Http::withHeaders($this->clockodoHeaders)
+      ->get(
+        $this->clockodoApiUrl . '/absences',
+        [
+          'year' => $year,
+          ...$optionalParameters
+        ]
+      );
+    return $clockodoResponse;
   }
 
   public function create($data)
