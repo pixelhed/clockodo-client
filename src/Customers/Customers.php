@@ -19,7 +19,7 @@ class Customers
     }
 
     /**
-     * List customers
+     * List customers.
      *
      * @param array $optionalParameters Additional optional parameters:
      *        - filter[active]: (boolean|null) Is the customer active?
@@ -33,6 +33,21 @@ class Customers
             ->get(
                 $this->clockodoApiUrl . '/v2/customers',
                 $optionalParameters
+            )->json();
+    }
+
+    /**
+     * Search for customers.
+     *
+     * @param int $customersId ID of the corresponding customer.
+     * 
+     * @return array
+     */
+    public function getOne(int $customerId): array
+    {
+        return Http::withHeaders($this->clockodoHeaders)
+            ->get(
+                $this->clockodoApiUrl . '/v2/customers/' . $customerId,
             )->json();
     }
 }
