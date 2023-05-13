@@ -58,4 +58,23 @@ class Clocks
                 ]
             )->json();
     }
+
+    /**
+     * Stop the clock
+     * 
+     * @param int $clockId ID of the entry.
+     * @param int $usersId (optional) ID of the corresponding co-worker.
+     * 
+     * @return array
+     */
+    public function stop(int $clockId, $usersId = null): array
+    {
+        return Http::withHeaders($this->clockodoHeaders)
+            ->delete(
+                $this->clockodoApiUrl . '/v2/clock/' . $clockId,
+                [
+                    'users_id' => $usersId
+                ]
+            )->json();
+    }
 }
