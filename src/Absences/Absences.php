@@ -2,13 +2,22 @@
 
 namespace Fs98\ClockodoClient\Absences;
 
+use Illuminate\Support\Facades\Config;
+
 class Absences
 {
+  protected $clockodoHeaders;
+
+  public function __construct()
+  {
+    $this->clockodoHeaders = Config::get('clockodo-client.headers');
+  }
+
   public function get()
   {
     // Implementation for fetching absences from Clockodo API
     // Return the retrieved absences
-
+    return $this->clockodoHeaders;
     return $this;
   }
 
