@@ -1,6 +1,6 @@
 <?php
 
-namespace Fs98\Clockodo\Database\Factories;
+namespace Fs98\ClockodoClient\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 

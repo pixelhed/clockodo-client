@@ -1,16 +1,16 @@
 <?php
 
-namespace Fs98\Clockodo\Facades;
+namespace Fs98\ClockodoClient\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Fs98\Clockodo\Clockodo
+ * @see \Fs98\ClockodoClient\Clockodo
  */
 class Clockodo extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \Fs98\Clockodo\Clockodo::class;
+        return \Fs98\ClockodoClient\Clockodo::class;
     }
 }

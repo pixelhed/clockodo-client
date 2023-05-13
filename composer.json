@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Fs98\\Clockodo\\": "src/",
-            "Fs98\\Clockodo\\Database\\Factories\\": "database/factories/"
+            "Fs98\\ClockodoClient\\": "src/",
+            "Fs98\\ClockodoClient\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Fs98\\Clockodo\\Tests\\": "tests/"
+            "Fs98\\ClockodoClient\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -61,10 +61,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Fs98\\Clockodo\\ClockodoServiceProvider"
+                "Fs98\\ClockodoClient\\ClockodoServiceProvider"
             ],
             "aliases": {
-                "Clockodo": "Fs98\\Clockodo\\Facades\\Clockodo"
+                "Clockodo": "Fs98\\ClockodoClient\\Facades\\Clockodo"
             }
         }
     },

@@ -1,6 +1,6 @@
 <?php
 
-namespace Fs98\Clockodo\Commands;
+namespace Fs98\ClockodoClient\Commands;
 
 use Illuminate\Console\Command;
 

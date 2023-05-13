@@ -1,8 +1,8 @@
 <?php
 
-namespace Fs98\Clockodo\Tests;
+namespace Fs98\ClockodoClient\Tests;
 
-use Fs98\Clockodo\ClockodoServiceProvider;
+use Fs98\ClockodoClient\ClockodoServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Fs98\\Clockodo\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Fs98\\ClockodoClient\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 

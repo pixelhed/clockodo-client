@@ -1,8 +1,8 @@
 <?php
 
-namespace Fs98\Clockodo;
+namespace Fs98\ClockodoClient;
 
-use Fs98\Clockodo\Commands\ClockodoCommand;
+use Fs98\ClockodoClient\Commands\ClockodoCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
