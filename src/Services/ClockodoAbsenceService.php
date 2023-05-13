@@ -4,5 +4,5 @@ namespace Fs98\ClockodoClient\Services;
 
 class ClockodoAbsenceService
 {
-  // Class implementation
+    // Class implementation
 }

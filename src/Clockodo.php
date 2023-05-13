@@ -6,10 +6,10 @@ use Fs98\ClockodoClient\Absences\Absences;
 
 class Clockodo
 {
-  public $absences;
+    public $absences;
 
-  public function __construct()
-  {
-    $this->absences = new Absences();
-  }
+    public function __construct()
+    {
+        $this->absences = new Absences();
+    }
 }
