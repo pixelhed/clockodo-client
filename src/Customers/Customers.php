@@ -2,7 +2,6 @@
 
 namespace Fs98\ClockodoClient\Customers;
 
-use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
 
@@ -21,17 +20,15 @@ class Customers
     /**
      * List customers.
      *
-     * @param array $optionalParameters Additional optional parameters:
+     * @param  array  $optionalParameters Additional optional parameters:
      *        - filter[active]: (boolean|null) Is the customer active?
      *        - page (integer|null) Because the result can have many customers, the use of page-by-page output is enabled for this request.
-     * 
-     * @return array
      */
     public function get(array $optionalParameters = []): array
     {
         return Http::withHeaders($this->clockodoHeaders)
             ->get(
-                $this->clockodoApiUrl . '/v2/customers',
+                $this->clockodoApiUrl.'/v2/customers',
                 $optionalParameters
             )->json();
     }
@@ -39,15 +36,13 @@ class Customers
     /**
      * Search for customers.
      *
-     * @param int $customersId ID of the corresponding customer.
-     * 
-     * @return array
+     * @param  int  $customersId ID of the corresponding customer.
      */
     public function getOne(int $customerId): array
     {
         return Http::withHeaders($this->clockodoHeaders)
             ->get(
-                $this->clockodoApiUrl . '/v2/customers/' . $customerId,
+                $this->clockodoApiUrl.'/v2/customers/'.$customerId,
             )->json();
     }
 }

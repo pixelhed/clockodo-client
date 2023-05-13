@@ -8,7 +8,11 @@ use Fs98\ClockodoClient\Customers\Customers;
 
 class Clockodo
 {
-    public $absences, $clocks, $customers;
+    public $absences;
+
+    public $clocks;
+
+    public $customers;
 
     public function __construct()
     {
