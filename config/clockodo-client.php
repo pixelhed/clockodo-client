@@ -12,6 +12,12 @@ return [
     'X-ClockodoApiKey' => env('CLOCKODO_API_KEY')
   ],
 
+
+  /**
+   * Official URL of the Clockodo API
+   */
+  'api_url' => env('CLOCKODO_API_URL', 'https://my.clockodo.com/api'),
+
   /*
    * List of clockodo absence <typ></typ>es
    */
