@@ -17,6 +17,15 @@ class Absences
     $this->clockodoApiUrl = Config::get('clockodo-client.api_url');
   }
 
+  /**
+   * Get absences for a specific year with optional parameters.
+   *
+   * @param int $year The year for which to retrieve absences.
+   * @param array $optionalParameters Additional optional parameters:
+   *        - users_id: (null|int) ID of the corresponding co-worker
+   * 
+   * @return \Illuminate\Http\Client\Response
+   */
   public function get(int $year, array $optionalParameters = []): Response
   {
     $clockodoResponse = Http::withHeaders($this->clockodoHeaders)
