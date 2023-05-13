@@ -39,6 +39,20 @@ class Absences
     return $clockodoResponse;
   }
 
+  /**
+   * Get absences for a specific year with optional parameters.
+   *
+   * @param int $id ID of the absence.
+   * 
+   * @return \Illuminate\Http\Client\Response
+   */
+  public function getOne(int $id): Response
+  {
+    $clockodoResponse = Http::withHeaders($this->clockodoHeaders)
+      ->get($this->clockodoApiUrl . '/absences/' . $id);
+    return $clockodoResponse;
+  }
+
   public function create($data)
   {
     // Implementation for creating an absence in Clockodo API
