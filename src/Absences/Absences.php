@@ -145,4 +145,18 @@ class Absences
                 $optionalParameters
             )->json();
     }
+
+    /**
+     * Delete absence.
+     *
+     * @param int $id ID of the absence.
+     * 
+     * @return array
+     */
+    public function delete(int $id): array
+    {
+        return Http::withHeaders($this->clockodoHeaders)
+            ->delete($this->clockodoApiUrl . '/absences/' . $id)
+            ->json();
+    }
 }
