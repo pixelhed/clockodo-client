@@ -28,7 +28,7 @@ class Customers
     {
         return Http::withHeaders($this->clockodoHeaders)
             ->get(
-                $this->clockodoApiUrl.'/v2/customers',
+                $this->clockodoApiUrl . '/v2/customers',
                 $optionalParameters
             )->json();
     }
@@ -42,7 +42,31 @@ class Customers
     {
         return Http::withHeaders($this->clockodoHeaders)
             ->get(
-                $this->clockodoApiUrl.'/v2/customers/'.$customerId,
+                $this->clockodoApiUrl . '/v2/customers/' . $customerId,
+            )->json();
+    }
+
+    /**
+     * Add customers
+     *
+     * @param  string  $name Name of the customer.
+     * @param  array  $optionalParameters Additional optional parameters:
+     *        - number: (null|string) Customer number.
+     *        - active (null|boolean) Is the customer active?.
+     *        - billable_default (boolean) Is the customer billable by default?
+     *        - note (null|string) Note for the customer. Only for owners and managers.
+     * 
+     * @return array
+     */
+    public function create(string $name, array $optionalParameters = []): array
+    {
+        return Http::withHeaders($this->clockodoHeaders)
+            ->post(
+                $this->clockodoApiUrl . '/v2/customers',
+                [
+                    'name' => $name,
+                    ...$optionalParameters,
+                ]
             )->json();
     }
 }
