@@ -28,7 +28,7 @@ class Customers
     {
         return Http::withHeaders($this->clockodoHeaders)
             ->get(
-                $this->clockodoApiUrl . '/v2/customers',
+                $this->clockodoApiUrl.'/v2/customers',
                 $optionalParameters
             )->json();
     }
@@ -42,7 +42,7 @@ class Customers
     {
         return Http::withHeaders($this->clockodoHeaders)
             ->get(
-                $this->clockodoApiUrl . '/v2/customers/' . $customerId,
+                $this->clockodoApiUrl.'/v2/customers/'.$customerId,
             )->json();
     }
 
@@ -60,7 +60,7 @@ class Customers
     {
         return Http::withHeaders($this->clockodoHeaders)
             ->post(
-                $this->clockodoApiUrl . '/v2/customers',
+                $this->clockodoApiUrl.'/v2/customers',
                 [
                     'name' => $name,
                     ...$optionalParameters,
@@ -71,7 +71,7 @@ class Customers
     /**
      * Edit customers
      *
-     * @param  int $id ID of the customer.
+     * @param  int  $id ID of the customer.
      * @param  array  $optionalParameters Additional optional parameters:
      *        - name Name (null|string) of the customer.
      *        - number (null|string) Customer number.
@@ -83,7 +83,7 @@ class Customers
     {
         return Http::withHeaders($this->clockodoHeaders)
             ->put(
-                $this->clockodoApiUrl . '/v2/customers/' . $id,
+                $this->clockodoApiUrl.'/v2/customers/'.$id,
                 $optionalParameters,
             )->json();
     }
@@ -96,7 +96,7 @@ class Customers
     public function delete(int $id): array
     {
         return Http::withHeaders($this->clockodoHeaders)
-            ->delete($this->clockodoApiUrl . '/v2/customers/' . $id)
+            ->delete($this->clockodoApiUrl.'/v2/customers/'.$id)
             ->json();
     }
 }
