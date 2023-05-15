@@ -87,4 +87,16 @@ class Customers
                 $optionalParameters,
             )->json();
     }
+
+    /**
+     * Delete customer
+     *
+     * @param  int  $id ID of the customer.
+     */
+    public function delete(int $id): array
+    {
+        return Http::withHeaders($this->clockodoHeaders)
+            ->delete($this->clockodoApiUrl . '/v2/customers/' . $id)
+            ->json();
+    }
 }
