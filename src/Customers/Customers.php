@@ -2,19 +2,15 @@
 
 namespace Fs98\ClockodoClient\Customers;
 
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Http;
+use Fs98\ClockodoClient\Services\ClockodoApiService;
 
 class Customers
 {
-    protected $clockodoHeaders;
+    protected $clockodoApiService;
 
-    protected $clockodoApiUrl;
-
-    public function __construct()
+    public function __construct(ClockodoApiService $clockodoApiService,)
     {
-        $this->clockodoHeaders = Config::get('clockodo-client.headers');
-        $this->clockodoApiUrl = Config::get('clockodo-client.api_url');
+        $this->clockodoApiService = $clockodoApiService;
     }
 
     /**
@@ -26,11 +22,7 @@ class Customers
      */
     public function get(array $optionalParameters = []): array
     {
-        return Http::withHeaders($this->clockodoHeaders)
-            ->get(
-                $this->clockodoApiUrl.'/v2/customers',
-                $optionalParameters
-            )->json();
+        return $this->clockodoApiService->performGetRequest('customers', $optionalParameters);
     }
 
     /**
@@ -40,10 +32,7 @@ class Customers
      */
     public function getOne(int $customerId): array
     {
-        return Http::withHeaders($this->clockodoHeaders)
-            ->get(
-                $this->clockodoApiUrl.'/v2/customers/'.$customerId,
-            )->json();
+        return $this->clockodoApiService->performGetRequest('v2/customers/' . $customerId);
     }
 
     /**
@@ -58,14 +47,11 @@ class Customers
      */
     public function create(string $name, array $optionalParameters = []): array
     {
-        return Http::withHeaders($this->clockodoHeaders)
-            ->post(
-                $this->clockodoApiUrl.'/v2/customers',
-                [
-                    'name' => $name,
-                    ...$optionalParameters,
-                ]
-            )->json();
+        $data = [
+            'name' => $name,
+            ...$optionalParameters,
+        ];
+        return $this->clockodoApiService->performPostRequest('v2/customers/', $data);
     }
 
     /**
@@ -81,11 +67,7 @@ class Customers
      */
     public function edit(int $id, array $optionalParameters = []): array
     {
-        return Http::withHeaders($this->clockodoHeaders)
-            ->put(
-                $this->clockodoApiUrl.'/v2/customers/'.$id,
-                $optionalParameters,
-            )->json();
+        return $this->clockodoApiService->performPutRequest('v2/customers/' . $id, $optionalParameters);
     }
 
     /**
@@ -95,8 +77,6 @@ class Customers
      */
     public function delete(int $id): array
     {
-        return Http::withHeaders($this->clockodoHeaders)
-            ->delete($this->clockodoApiUrl.'/v2/customers/'.$id)
-            ->json();
+        return $this->clockodoApiService->performDeleteRequest('v2/customers/' . $id);
     }
 }
