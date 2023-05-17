@@ -3,6 +3,7 @@
 namespace Fs98\ClockodoClient\Services;
 
 use Fs98\ClockodoClient\Interfaces\ClockodoApiInterface;
+use Illuminate\Support\Facades\Http;
 
 class ClockodoApiService implements ClockodoApiInterface
 {
@@ -25,5 +26,12 @@ class ClockodoApiService implements ClockodoApiInterface
   public function getApiUrl($endpoint): string
   {
     return $this->clockodoApiUrl . $endpoint;
+  }
+
+  public function performGetRequest($endpoint, $parameters = []): array
+  {
+    return Http::withHeaders($this->getRequestHeaders())
+      ->get($this->getApiUrl($endpoint), $parameters)
+      ->json();
   }
 }
