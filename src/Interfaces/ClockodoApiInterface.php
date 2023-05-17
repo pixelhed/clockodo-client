@@ -8,4 +8,5 @@ interface ClockodoApiInterface
   public function getApiUrl($endpoint): string;
   public function performGetRequest($endpoint, $data = []): array;
   public function performPostRequest($endpoint, $data = []): array;
+  public function performPutRequest($endpoint, $data = []): array;
 }
