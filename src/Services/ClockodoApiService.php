@@ -2,26 +2,27 @@
 
 namespace Fs98\ClockodoClient\Services;
 
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Http;
+use Fs98\ClockodoClient\Interfaces\ClockodoApiInterface;
 
-class ClockodoApiService
+class ClockodoApiService implements ClockodoApiInterface
 {
   protected $clockodoHeaders;
   protected $clockodoApiUrl;
 
-  public function __construct()
-  {
-    $this->clockodoHeaders = Config::get('clockodo-client.headers');
-    $this->clockodoApiUrl = Config::get('clockodo-client.api_url');
+  public function __construct(
+    array $clockodoHeaders,
+    string $clockodoApiUrl
+  ) {
+    $this->clockodoHeaders = $clockodoHeaders;
+    $this->clockodoApiUrl = $clockodoApiUrl;
   }
 
-  protected function getRequestHeaders()
+  public function getRequestHeaders(): array
   {
     return $this->clockodoHeaders;
   }
 
-  protected function getApiUrl($endpoint)
+  public function getApiUrl($endpoint): string
   {
     return $this->clockodoApiUrl . $endpoint;
   }
