@@ -9,4 +9,5 @@ interface ClockodoApiInterface
   public function performGetRequest($endpoint, $data = []): array;
   public function performPostRequest($endpoint, $data = []): array;
   public function performPutRequest($endpoint, $data = []): array;
+  public function performDeleteRequest($endpoint): array;
 }
