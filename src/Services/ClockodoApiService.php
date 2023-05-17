@@ -28,31 +28,30 @@ class ClockodoApiService implements ClockodoApiInterface
     return $this->clockodoApiUrl . $endpoint;
   }
 
-  public function performGetRequest($endpoint, $data = []): array
+  public function performRequest(string $method, string $endpoint, array $data = []): array
   {
     return Http::withHeaders($this->getRequestHeaders())
-      ->get($this->getApiUrl($endpoint), $data)
+      ->{$method}($this->getApiUrl($endpoint), $data)
       ->json();
+  }
+
+  public function performGetRequest($endpoint, $data = []): array
+  {
+    return $this->performRequest('get', $endpoint, $data);
   }
 
   public function performPostRequest($endpoint, $data = []): array
   {
-    return Http::withHeaders($this->getRequestHeaders())
-      ->post($this->getApiUrl($endpoint), $data)
-      ->json();
+    return $this->performRequest('post', $endpoint, $data);
   }
 
   public function performPutRequest($endpoint, $data = []): array
   {
-    return Http::withHeaders($this->getRequestHeaders())
-      ->put($this->getApiUrl($endpoint), $data)
-      ->json();
+    return $this->performRequest('put', $endpoint, $data);
   }
 
   public function performDeleteRequest($endpoint): array
   {
-    return Http::withHeaders($this->getRequestHeaders())
-      ->delete($this->getApiUrl($endpoint))
-      ->json();
+    return $this->performRequest('delete', $endpoint);
   }
 }
