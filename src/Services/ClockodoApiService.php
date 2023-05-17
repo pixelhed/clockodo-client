@@ -41,4 +41,11 @@ class ClockodoApiService implements ClockodoApiInterface
       ->post($this->getApiUrl($endpoint), $data)
       ->json();
   }
+
+  public function performPutRequest($endpoint, $data = []): array
+  {
+    return Http::withHeaders($this->getRequestHeaders())
+      ->put($this->getApiUrl($endpoint), $data)
+      ->json();
+  }
 }
