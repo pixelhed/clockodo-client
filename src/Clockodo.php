@@ -5,6 +5,8 @@ namespace Fs98\ClockodoClient;
 use Fs98\ClockodoClient\Absences\Absences;
 use Fs98\ClockodoClient\Clocks\Clocks;
 use Fs98\ClockodoClient\Customers\Customers;
+use Fs98\ClockodoClient\Services\ClockodoApiService;
+use Illuminate\Support\Facades\Config;
 
 class Clockodo
 {
@@ -16,8 +18,19 @@ class Clockodo
 
     public function __construct()
     {
-        $this->absences = new Absences();
         $this->clocks = new Clocks();
-        $this->customers = new Customers();
+
+        $this->absences = new Absences(
+            new ClockodoApiService(
+                Config::get('clockodo-client.headers'),
+                Config::get('clockodo-client.api_url')
+            ),
+        );
+        $this->customers = new Customers(
+            new ClockodoApiService(
+                Config::get('clockodo-client.headers'),
+                Config::get('clockodo-client.api_url')
+            ),
+        );
     }
 }

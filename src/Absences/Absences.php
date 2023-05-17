@@ -2,19 +2,15 @@
 
 namespace Fs98\ClockodoClient\Absences;
 
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Http;
+use Fs98\ClockodoClient\Services\ClockodoApiService;
 
 class Absences
 {
-    protected $clockodoHeaders;
+    protected $clockodoApiService;
 
-    protected $clockodoApiUrl;
-
-    public function __construct()
+    public function __construct(ClockodoApiService $clockodoApiService)
     {
-        $this->clockodoHeaders = Config::get('clockodo-client.headers');
-        $this->clockodoApiUrl = Config::get('clockodo-client.api_url');
+        $this->clockodoApiService = $clockodoApiService;
     }
 
     /**
@@ -26,14 +22,12 @@ class Absences
      */
     public function get(int $year, array $optionalParameters = []): array
     {
-        return Http::withHeaders($this->clockodoHeaders)
-            ->get(
-                $this->clockodoApiUrl.'/absences',
-                [
-                    'year' => $year,
-                    ...$optionalParameters,
-                ]
-            )->json();
+        $data = [
+            'year' => $year,
+            ...$optionalParameters,
+        ];
+
+        return $this->clockodoApiService->performGetRequest('absences', $data);
     }
 
     /**
@@ -43,9 +37,7 @@ class Absences
      */
     public function getOne(int $id): array
     {
-        return Http::withHeaders($this->clockodoHeaders)
-            ->get($this->clockodoApiUrl.'/absences/'.$id)
-            ->json();
+        return $this->clockodoApiService->performGetRequest('absences/'.$id);
     }
 
     /**
@@ -80,16 +72,14 @@ class Absences
      */
     public function create(string $dateSince, string $dateUntil, int $type, array $optionalParameters = []): array
     {
-        return Http::withHeaders($this->clockodoHeaders)
-            ->post(
-                $this->clockodoApiUrl.'/absences',
-                [
-                    'date_since' => $dateSince,
-                    'date_until' => $dateUntil,
-                    'type' => $type,
-                    ...$optionalParameters,
-                ]
-            )->json();
+        $data = [
+            'date_since' => $dateSince,
+            'date_until' => $dateUntil,
+            'type' => $type,
+            ...$optionalParameters,
+        ];
+
+        return $this->clockodoApiService->performPostRequest('absences', $data);
     }
 
     /**
@@ -130,11 +120,7 @@ class Absences
      */
     public function edit(int $id, array $optionalParameters = []): array
     {
-        return Http::withHeaders($this->clockodoHeaders)
-            ->put(
-                $this->clockodoApiUrl.'/absences/'.$id,
-                $optionalParameters
-            )->json();
+        return $this->clockodoApiService->performPutRequest('absences/'.$id, $optionalParameters);
     }
 
     /**
@@ -144,8 +130,6 @@ class Absences
      */
     public function delete(int $id): array
     {
-        return Http::withHeaders($this->clockodoHeaders)
-            ->delete($this->clockodoApiUrl.'/absences/'.$id)
-            ->json();
+        return $this->clockodoApiService->performDeleteRequest('absences/'.$id);
     }
 }
