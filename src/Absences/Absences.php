@@ -8,7 +8,7 @@ class Absences
 {
     protected $clockodoApiService;
 
-    public function __construct(ClockodoApiService $clockodoApiService,)
+    public function __construct(ClockodoApiService $clockodoApiService)
     {
         $this->clockodoApiService = $clockodoApiService;
     }
@@ -24,8 +24,9 @@ class Absences
     {
         $data = [
             'year' => $year,
-            ...$optionalParameters
+            ...$optionalParameters,
         ];
+
         return $this->clockodoApiService->performGetRequest('absences', $data);
     }
 
@@ -36,7 +37,7 @@ class Absences
      */
     public function getOne(int $id): array
     {
-        return $this->clockodoApiService->performGetRequest('absences/' . $id);
+        return $this->clockodoApiService->performGetRequest('absences/'.$id);
     }
 
     /**
@@ -77,6 +78,7 @@ class Absences
             'type' => $type,
             ...$optionalParameters,
         ];
+
         return $this->clockodoApiService->performPostRequest('absences', $data);
     }
 
@@ -118,9 +120,8 @@ class Absences
      */
     public function edit(int $id, array $optionalParameters = []): array
     {
-        return $this->clockodoApiService->performPutRequest('absences/' . $id, $optionalParameters);
+        return $this->clockodoApiService->performPutRequest('absences/'.$id, $optionalParameters);
     }
-
 
     /**
      * Delete absence.
@@ -129,6 +130,6 @@ class Absences
      */
     public function delete(int $id): array
     {
-        return $this->clockodoApiService->performDeleteRequest('absences/' . $id);
+        return $this->clockodoApiService->performDeleteRequest('absences/'.$id);
     }
 }
