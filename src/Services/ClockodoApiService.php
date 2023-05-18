@@ -7,51 +7,52 @@ use Illuminate\Support\Facades\Http;
 
 class ClockodoApiService implements ClockodoApiInterface
 {
-  protected $clockodoHeaders;
-  protected $clockodoApiUrl;
+    protected $clockodoHeaders;
 
-  public function __construct(
-    array $clockodoHeaders,
-    string $clockodoApiUrl
-  ) {
-    $this->clockodoHeaders = $clockodoHeaders;
-    $this->clockodoApiUrl = $clockodoApiUrl;
-  }
+    protected $clockodoApiUrl;
 
-  public function getRequestHeaders(): array
-  {
-    return $this->clockodoHeaders;
-  }
+    public function __construct(
+        array $clockodoHeaders,
+        string $clockodoApiUrl
+    ) {
+        $this->clockodoHeaders = $clockodoHeaders;
+        $this->clockodoApiUrl = $clockodoApiUrl;
+    }
 
-  public function getApiUrl($endpoint): string
-  {
-    return rtrim($this->clockodoApiUrl, '/') . '/' . ltrim($endpoint, '/');
-  }
+    public function getRequestHeaders(): array
+    {
+        return $this->clockodoHeaders;
+    }
 
-  public function performRequest(string $method, string $endpoint, array $data = []): array
-  {
-    return Http::withHeaders($this->getRequestHeaders())
-      ->{$method}($this->getApiUrl($endpoint), $data)
-      ->json();
-  }
+    public function getApiUrl($endpoint): string
+    {
+        return rtrim($this->clockodoApiUrl, '/').'/'.ltrim($endpoint, '/');
+    }
 
-  public function performGetRequest($endpoint, $data = []): array
-  {
-    return $this->performRequest('get', $endpoint, $data);
-  }
+    public function performRequest(string $method, string $endpoint, array $data = []): array
+    {
+        return Http::withHeaders($this->getRequestHeaders())
+            ->{$method}($this->getApiUrl($endpoint), $data)
+            ->json();
+    }
 
-  public function performPostRequest($endpoint, $data = []): array
-  {
-    return $this->performRequest('post', $endpoint, $data);
-  }
+    public function performGetRequest($endpoint, $data = []): array
+    {
+        return $this->performRequest('get', $endpoint, $data);
+    }
 
-  public function performPutRequest($endpoint, $data = []): array
-  {
-    return $this->performRequest('put', $endpoint, $data);
-  }
+    public function performPostRequest($endpoint, $data = []): array
+    {
+        return $this->performRequest('post', $endpoint, $data);
+    }
 
-  public function performDeleteRequest($endpoint): array
-  {
-    return $this->performRequest('delete', $endpoint);
-  }
+    public function performPutRequest($endpoint, $data = []): array
+    {
+        return $this->performRequest('put', $endpoint, $data);
+    }
+
+    public function performDeleteRequest($endpoint): array
+    {
+        return $this->performRequest('delete', $endpoint);
+    }
 }
