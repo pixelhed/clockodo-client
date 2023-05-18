@@ -7,7 +7,7 @@
 
 The Clockodo Laravel Package is a convenient and easy-to-use integration that allows Laravel developers to seamlessly integrate Clockodo time tracking functionality into their Laravel applications. [Clockodo](https://www.clockodo.com/en/) is a popular time tracking and management tool that helps businesses track and manage their working hours efficiently.
 
-This package provides a set of Laravel-specific features and utilities that simplify the process of integrating Clockodo into your Laravel application. It encapsulates the complexities of making API requests, handling responses, and provides a clean and intuitive interface for interacting with Clockodo from within Laravel.
+This package provides a set of Laravel-specific features and utilities that simplify the process of integrating Clockodo into your Laravel application. It encapsulates the complexities of making API requests, handling responses, and provides a streamlined approach for interacting with Clockodo within Laravel.
 
 ## Features:
 
