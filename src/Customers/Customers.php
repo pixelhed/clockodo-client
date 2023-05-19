@@ -22,7 +22,7 @@ class Customers
      */
     public function get(array $optionalParameters = []): array
     {
-        return $this->clockodoApiService->performGetRequest('customers', $optionalParameters);
+        return $this->clockodoApiService->performGetRequest('v2/customers', $optionalParameters);
     }
 
     /**
@@ -52,7 +52,7 @@ class Customers
             ...$optionalParameters,
         ];
 
-        return $this->clockodoApiService->performPostRequest('v2/customers/', $data);
+        return $this->clockodoApiService->performPostRequest('v2/customers', $data);
     }
 
     /**

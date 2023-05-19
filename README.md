@@ -67,8 +67,8 @@ return [
     'api_url' => env('CLOCKODO_API_URL', 'https://my.clockodo.com/api'),
 
     /*
-   * List of clockodo absence <typ></typ>es
-   */
+    * List of clockodo absence <typ></typ>es
+    */
     'absence_types' => [
         1 => 'Regular holiday',
         2 => 'Special leaves',
@@ -88,8 +88,8 @@ return [
     ],
 
     /*
-   * List of clockodo absence statuses
-   */
+    * List of clockodo absence statuses
+    */
     'absence_statuses' => [
         0 => 'enquired/reported',
         1 => 'approved',
@@ -110,13 +110,19 @@ php artisan vendor:publish --tag="clockodo-client-views"
 
 ```php
 $clockodo = new Fs98\ClockodoClient\Clockodo();
-return $absences = $clockodo->absences->get(2023);
+return $clockodo->absences->get(2023);
 ```
 
 ## Testing
 
 ```bash
 composer test
+```
+
+To run specific group of tests (eg. unit), do
+
+```bash
+composer test -- --group unit
 ```
 
 ## Changelog
