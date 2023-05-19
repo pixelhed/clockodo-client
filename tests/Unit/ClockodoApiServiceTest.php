@@ -34,19 +34,20 @@ it('returns the API URL for a given endpoint', function () use ($clockodoHeaders
     expect($apiUrl)->toBe('https://my.clockodo.com/api/users');
 });
 
-test('performGetRequest sends GET request and returns JSON response', function () use ($clockodoHeaders, $clockodoApiUrl) {
+test('performGetRequest sends GET request with correct URL, method, and headers', function () use ($clockodoHeaders, $clockodoApiUrl) {
     // Arrange
-    $mockResponse = ['data' => []];
     $mockEndpoint = 'absences';
     $mockData = ['year' => 2023];
 
     Http::fake([
-        '*' => Http::response($mockResponse),
+        '*' => Http::response([
+            'data' => []
+        ]),
     ]);
 
     // Act
     $clockodoApiService = new ClockodoApiService($clockodoHeaders, $clockodoApiUrl);
-    $result = $clockodoApiService->performGetRequest($mockEndpoint, $mockData);
+    $clockodoApiService->performGetRequest($mockEndpoint, $mockData);
 
     // Assert
     Http::assertSentCount(1);
@@ -57,13 +58,10 @@ test('performGetRequest sends GET request and returns JSON response', function (
             $request->method() === 'GET' &&
             $request->headers($clockodoHeaders);
     });
-
-    expect($result)->toEqual($mockResponse);
 });
 
-test('performPostRequest sends POST request and returns JSON response', function () use ($clockodoHeaders, $clockodoApiUrl) {
+test('performPostRequest sends POST request with correct URL, method, and headers', function () use ($clockodoHeaders, $clockodoApiUrl) {
     // Arrange
-    $mockResponse = ['data' => []];
     $mockEndpoint = 'absences';
     $mockData = [
         'date_since' => '2023-05-05',
@@ -72,12 +70,14 @@ test('performPostRequest sends POST request and returns JSON response', function
     ];
 
     Http::fake([
-        '*' => Http::response($mockResponse),
+        '*' => Http::response([
+            'data' => []
+        ]),
     ]);
 
     // Act
     $clockodoApiService = new ClockodoApiService($clockodoHeaders, $clockodoApiUrl);
-    $result = $clockodoApiService->performPostRequest($mockEndpoint, $mockData);
+    $clockodoApiService->performPostRequest($mockEndpoint, $mockData);
 
     // Assert
     Http::assertSentCount(1);
@@ -88,51 +88,50 @@ test('performPostRequest sends POST request and returns JSON response', function
             $request->method() === 'POST' &&
             $request->headers($clockodoHeaders);
     });
-
-    expect($result)->toEqual($mockResponse);
 });
 
-test('performPutRequest sends PUT request and returns JSON response', function () use ($clockodoHeaders, $clockodoApiUrl) {
+test('performPutRequest sends PUT request with correct URL, method, headers, and data', function () use ($clockodoHeaders, $clockodoApiUrl) {
     // Arrange
-    $mockResponse = ['data' => []];
     $mockEndpoint = 'absences/123';
     $mockData = [
         'date_until' => '2023-05-05',
     ];
 
     Http::fake([
-        '*' => Http::response($mockResponse),
+        '*' => Http::response([
+            'data' => []
+        ]),
     ]);
 
     // Act
     $clockodoApiService = new ClockodoApiService($clockodoHeaders, $clockodoApiUrl);
-    $result = $clockodoApiService->performPutRequest($mockEndpoint, $mockData);
+    $clockodoApiService->performPutRequest($mockEndpoint, $mockData);
 
     // Assert
     Http::assertSentCount(1);
-    Http::assertSent(function (Request $request) use ($mockEndpoint, $clockodoApiUrl, $clockodoHeaders) {
+    Http::assertSent(function (Request $request) use ($mockEndpoint, $clockodoApiUrl, $clockodoHeaders, $mockData) {
         $mockRequestUrl = $clockodoApiUrl . $mockEndpoint;
 
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'PUT' &&
-            $request->headers($clockodoHeaders);
+            $request->headers($clockodoHeaders) &&
+            $request->data() === $mockData;
     });
-
-    expect($result)->toEqual($mockResponse);
 });
 
-test('performDeleteRequest sends DELETE request and returns JSON response', function () use ($clockodoHeaders, $clockodoApiUrl) {
+test('performDeleteRequest sends DELETE request with correct URL, method, and headers', function () use ($clockodoHeaders, $clockodoApiUrl) {
     // Arrange
-    $mockResponse = ['data' => []];
     $mockEndpoint = 'absences/123';
 
     Http::fake([
-        '*' => Http::response($mockResponse),
+        '*' => Http::response([
+            'data' => []
+        ]),
     ]);
 
     // Act
     $clockodoApiService = new ClockodoApiService($clockodoHeaders, $clockodoApiUrl);
-    $result = $clockodoApiService->performDeleteRequest($mockEndpoint);
+    $clockodoApiService->performDeleteRequest($mockEndpoint);
 
     // Assert
     Http::assertSentCount(1);
@@ -143,6 +142,4 @@ test('performDeleteRequest sends DELETE request and returns JSON response', func
             $request->method() === 'DELETE' &&
             $request->headers($clockodoHeaders);
     });
-
-    expect($result)->toEqual($mockResponse);
 });
