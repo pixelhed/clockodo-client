@@ -32,7 +32,7 @@ class Customers
      */
     public function getOne(int $customerId): array
     {
-        return $this->clockodoApiService->performGetRequest('v2/customers/' . $customerId);
+        return $this->clockodoApiService->performGetRequest('v2/customers/'.$customerId);
     }
 
     /**
@@ -68,7 +68,7 @@ class Customers
      */
     public function edit(int $id, array $optionalParameters = []): array
     {
-        return $this->clockodoApiService->performPutRequest('v2/customers/' . $id, $optionalParameters);
+        return $this->clockodoApiService->performPutRequest('v2/customers/'.$id, $optionalParameters);
     }
 
     /**
@@ -78,6 +78,6 @@ class Customers
      */
     public function delete(int $id): array
     {
-        return $this->clockodoApiService->performDeleteRequest('v2/customers/' . $id);
+        return $this->clockodoApiService->performDeleteRequest('v2/customers/'.$id);
     }
 }

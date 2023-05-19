@@ -1,9 +1,9 @@
 <?php
 
-use Fs98\ClockodoClient\Services\ClockodoApiService;
 use Fs98\ClockodoClient\Customers\Customers;
-use Illuminate\Support\Facades\Http;
+use Fs98\ClockodoClient\Services\ClockodoApiService;
 use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Http;
 
 uses()->group('unit', 'customers');
 
@@ -18,7 +18,7 @@ it('sends a GET request to get customers', function () use ($clockodoHeaders, $c
     // Arrange
     $mockOptionalParameters = [
         'filter[active]' => true,
-        'page' => 2
+        'page' => 2,
     ];
 
     Http::fake([
@@ -34,7 +34,7 @@ it('sends a GET request to get customers', function () use ($clockodoHeaders, $c
     // Assert
     Http::assertSentCount(1);
     Http::assertSent(function (Request $request) use ($clockodoApiUrl, $clockodoHeaders, $mockOptionalParameters) {
-        $mockRequestUrl = $clockodoApiUrl . 'v2/customers?' . http_build_query($mockOptionalParameters);
+        $mockRequestUrl = $clockodoApiUrl.'v2/customers?'.http_build_query($mockOptionalParameters);
 
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'GET' &&
@@ -59,7 +59,7 @@ it('sends a GET request to get a selected customer by id', function () use ($clo
     // Assert
     Http::assertSentCount(1);
     Http::assertSent(function (Request $request) use ($clockodoApiUrl, $clockodoHeaders, $mockCustomerId) {
-        $mockRequestUrl = $clockodoApiUrl . 'v2/customers/' . $mockCustomerId;
+        $mockRequestUrl = $clockodoApiUrl.'v2/customers/'.$mockCustomerId;
 
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'GET' &&
@@ -89,7 +89,7 @@ it('sends a POST request to create a new customer', function () use ($clockodoHe
             'name' => $mockName,
             ...$mockOptionalParameters,
         ];
-        $mockRequestUrl = $clockodoApiUrl . 'v2/customers';
+        $mockRequestUrl = $clockodoApiUrl.'v2/customers';
 
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'POST' &&
@@ -116,7 +116,7 @@ it('sends a PUT request to edit existing customer by id', function () use ($cloc
     // Assert
     Http::assertSentCount(1);
     Http::assertSent(function (Request $request) use ($clockodoApiUrl, $clockodoHeaders, $mockCustomerId, $mockOptionalParameters) {
-        $mockRequestUrl = $clockodoApiUrl . 'v2/customers/' . $mockCustomerId;
+        $mockRequestUrl = $clockodoApiUrl.'v2/customers/'.$mockCustomerId;
 
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'PUT' &&
@@ -142,7 +142,7 @@ it('sends a DELETE request to delete customer by id', function () use ($clockodo
     // Assert
     Http::assertSentCount(1);
     Http::assertSent(function (Request $request) use ($clockodoApiUrl, $clockodoHeaders, $mockCustomerId) {
-        $mockRequestUrl = $clockodoApiUrl . 'v2/customers/' . $mockCustomerId;
+        $mockRequestUrl = $clockodoApiUrl.'v2/customers/'.$mockCustomerId;
 
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'DELETE' &&

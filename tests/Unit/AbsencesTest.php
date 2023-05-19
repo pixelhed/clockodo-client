@@ -1,9 +1,9 @@
 <?php
 
-use Fs98\ClockodoClient\Services\ClockodoApiService;
 use Fs98\ClockodoClient\Absences\Absences;
-use Illuminate\Support\Facades\Http;
+use Fs98\ClockodoClient\Services\ClockodoApiService;
 use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Http;
 
 uses()->group('unit', 'absences');
 
@@ -36,7 +36,7 @@ it('sends a GET request to get absences for a specific year with optional parame
             'year' => $mockYear,
             ...$mockOptionalParameters,
         ];
-        $mockRequestUrl = $clockodoApiUrl . 'absences?' . http_build_query($mockData);
+        $mockRequestUrl = $clockodoApiUrl.'absences?'.http_build_query($mockData);
 
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'GET' &&
@@ -61,7 +61,7 @@ it('sends a GET request to get a selected absence by id', function () use ($cloc
     // Assert
     Http::assertSentCount(1);
     Http::assertSent(function (Request $request) use ($clockodoApiUrl, $clockodoHeaders, $mockAbsenceId) {
-        $mockRequestUrl = $clockodoApiUrl . 'absences/' . $mockAbsenceId;
+        $mockRequestUrl = $clockodoApiUrl.'absences/'.$mockAbsenceId;
 
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'GET' &&
@@ -95,7 +95,7 @@ it('sends a POST request to create a new absence', function () use ($clockodoHea
             'type' => $mockType,
             ...$mockOptionalParameters,
         ];
-        $mockRequestUrl = $clockodoApiUrl . 'absences';
+        $mockRequestUrl = $clockodoApiUrl.'absences';
 
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'POST' &&
@@ -122,7 +122,7 @@ it('sends a PUT request to edit existing absence by id', function () use ($clock
     // Assert
     Http::assertSentCount(1);
     Http::assertSent(function (Request $request) use ($clockodoApiUrl, $clockodoHeaders, $mockAbsenceId, $mockOptionalParameters) {
-        $mockRequestUrl = $clockodoApiUrl . 'absences/' . $mockAbsenceId;
+        $mockRequestUrl = $clockodoApiUrl.'absences/'.$mockAbsenceId;
 
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'PUT' &&
@@ -148,7 +148,7 @@ it('sends a DELETE request to delete absence by id', function () use ($clockodoH
     // Assert
     Http::assertSentCount(1);
     Http::assertSent(function (Request $request) use ($clockodoApiUrl, $clockodoHeaders, $mockAbsenceId) {
-        $mockRequestUrl = $clockodoApiUrl . 'absences/' . $mockAbsenceId;
+        $mockRequestUrl = $clockodoApiUrl.'absences/'.$mockAbsenceId;
 
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'DELETE' &&

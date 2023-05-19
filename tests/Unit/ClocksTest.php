@@ -1,8 +1,8 @@
 <?php
 
 use Fs98\ClockodoClient\Clocks\Clocks;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Http;
 
 uses()->group('unit', 'clocks');
 
@@ -27,7 +27,7 @@ it('sends a GET request to get currently running entries', function () use ($clo
     // Assert
     Http::assertSentCount(1);
     Http::assertSent(function (Request $request) use ($clockodoApiUrl, $clockodoHeaders) {
-        $mockRequestUrl = $clockodoApiUrl . 'v2/clock';
+        $mockRequestUrl = $clockodoApiUrl.'v2/clock';
 
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'GET' &&
@@ -41,7 +41,7 @@ it('sends a POST request to start a clock', function () use ($clockodoHeaders, $
     $mockServicesId = 1702927;
     $mockOptionalParameters = [
         'text' => '...',
-        'users_id' => 1702928
+        'users_id' => 1702928,
     ];
 
     Http::fake([
@@ -59,9 +59,10 @@ it('sends a POST request to start a clock', function () use ($clockodoHeaders, $
         $mockData = [
             'customers_id' => $mockCustomersId,
             'services_id' => $mockServicesId,
-            ...$mockOptionalParameters
+            ...$mockOptionalParameters,
         ];
-        $mockRequestUrl = $clockodoApiUrl . 'v2/clock';
+        $mockRequestUrl = $clockodoApiUrl.'v2/clock';
+
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'POST' &&
             $request->headers($clockodoHeaders) &&
@@ -87,9 +88,10 @@ it('sends a DELETE request to stop the clock', function () use ($clockodoHeaders
     Http::assertSentCount(1);
     Http::assertSent(function (Request $request) use ($clockodoApiUrl, $clockodoHeaders, $mockUsersId, $mockClockId) {
         $mockData = [
-            'users_id' => $mockUsersId
+            'users_id' => $mockUsersId,
         ];
-        $mockRequestUrl = $clockodoApiUrl . 'v2/clock/' . $mockClockId;
+        $mockRequestUrl = $clockodoApiUrl.'v2/clock/'.$mockClockId;
+
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'DELETE' &&
             $request->headers($clockodoHeaders) &&
