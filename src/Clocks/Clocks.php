@@ -19,10 +19,7 @@ class Clocks
      */
     public function currentlyRunning(): array
     {
-        return Http::withHeaders($this->clockodoHeaders)
-            ->get(
-                $this->clockodoApiUrl . '/v2/clock'
-            )->json();
+        return $this->clockodoApiService->performGetRequest('v2/clock');
     }
 
     /**
@@ -39,17 +36,15 @@ class Clocks
      *        - text (null|string) Description text. Only in list function with enhanced list mode enabled.
      *        - users_id (int) ID of the corresponding co-worker.
      */
-    public function start(int $customersId, int $servicesId, $optionalParameters): array
+    public function start(int $customersId, int $servicesId, $optionalParameters = []): array
     {
-        return Http::withHeaders($this->clockodoHeaders)
-            ->post(
-                $this->clockodoApiUrl . '/v2/clock',
-                [
-                    'customers_id' => $customersId,
-                    'services_id' => $servicesId,
-                    ...$optionalParameters,
-                ]
-            )->json();
+        $data = [
+            'customers_id' => $customersId,
+            'services_id' => $servicesId,
+            ...$optionalParameters,
+        ];
+
+        return $this->clockodoApiService->performPostRequest('v2/clock', $data);
     }
 
     /**
@@ -60,12 +55,10 @@ class Clocks
      */
     public function stop(int $clockId, $usersId = null): array
     {
-        return Http::withHeaders($this->clockodoHeaders)
-            ->delete(
-                $this->clockodoApiUrl . '/v2/clock/' . $clockId,
-                [
-                    'users_id' => $usersId,
-                ]
-            )->json();
+        $data = [
+            'users_id' => $usersId,
+        ];
+
+        return $this->clockodoApiService->performDeleteRequest('v2/clock/' . $clockId, $data);
     }
 }
