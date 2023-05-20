@@ -2,19 +2,15 @@
 
 namespace Fs98\ClockodoClient\Clocks;
 
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Http;
+use Fs98\ClockodoClient\Services\ClockodoApiService;
 
 class Clocks
 {
-    protected $clockodoHeaders;
+    protected $clockodoApiService;
 
-    protected $clockodoApiUrl;
-
-    public function __construct()
+    public function __construct(ClockodoApiService $clockodoApiService)
     {
-        $this->clockodoHeaders = Config::get('clockodo-client.headers');
-        $this->clockodoApiUrl = Config::get('clockodo-client.api_url');
+        $this->clockodoApiService = $clockodoApiService;
     }
 
     /**
@@ -22,10 +18,7 @@ class Clocks
      */
     public function currentlyRunning(): array
     {
-        return Http::withHeaders($this->clockodoHeaders)
-            ->get(
-                $this->clockodoApiUrl.'/v2/clock'
-            )->json();
+        return $this->clockodoApiService->performGetRequest('v2/clock');
     }
 
     /**
@@ -42,17 +35,15 @@ class Clocks
      *        - text (null|string) Description text. Only in list function with enhanced list mode enabled.
      *        - users_id (int) ID of the corresponding co-worker.
      */
-    public function start(int $customersId, int $servicesId, $optionalParameters): array
+    public function start(int $customersId, int $servicesId, $optionalParameters = []): array
     {
-        return Http::withHeaders($this->clockodoHeaders)
-            ->post(
-                $this->clockodoApiUrl.'/v2/clock',
-                [
-                    'customers_id' => $customersId,
-                    'services_id' => $servicesId,
-                    ...$optionalParameters,
-                ]
-            )->json();
+        $data = [
+            'customers_id' => $customersId,
+            'services_id' => $servicesId,
+            ...$optionalParameters,
+        ];
+
+        return $this->clockodoApiService->performPostRequest('v2/clock', $data);
     }
 
     /**
@@ -63,12 +54,10 @@ class Clocks
      */
     public function stop(int $clockId, $usersId = null): array
     {
-        return Http::withHeaders($this->clockodoHeaders)
-            ->delete(
-                $this->clockodoApiUrl.'/v2/clock/'.$clockId,
-                [
-                    'users_id' => $usersId,
-                ]
-            )->json();
+        $data = [
+            'users_id' => $usersId,
+        ];
+
+        return $this->clockodoApiService->performDeleteRequest('v2/clock/'.$clockId, $data);
     }
 }

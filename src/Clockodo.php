@@ -18,7 +18,12 @@ class Clockodo
 
     public function __construct()
     {
-        $this->clocks = new Clocks();
+        $this->clocks = new Clocks(
+            new ClockodoApiService(
+                Config::get('clockodo-client.headers'),
+                Config::get('clockodo-client.api_url')
+            ),
+        );
 
         $this->absences = new Absences(
             new ClockodoApiService(
