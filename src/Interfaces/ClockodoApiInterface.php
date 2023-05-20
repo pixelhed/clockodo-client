@@ -6,13 +6,13 @@ interface ClockodoApiInterface
 {
     public function getRequestHeaders(): array;
 
-    public function getApiUrl($endpoint): string;
+    public function getApiUrl(string $endpoint): string;
 
-    public function performGetRequest($endpoint, $data = []): array;
+    public function performGetRequest(string $endpoint, array $data = []): array;
 
-    public function performPostRequest($endpoint, $data = []): array;
+    public function performPostRequest(string $endpoint, array $data = []): array;
 
-    public function performPutRequest($endpoint, $data = []): array;
+    public function performPutRequest(string $endpoint, array $data = []): array;
 
-    public function performDeleteRequest($endpoint): array;
+    public function performDeleteRequest(string $endpoint, array $data = []): array;
 }
