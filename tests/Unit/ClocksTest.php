@@ -1,6 +1,7 @@
 <?php
 
 use Fs98\ClockodoClient\Clocks\Clocks;
+use Fs98\ClockodoClient\Services\ClockodoApiService;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -19,7 +20,8 @@ it('sends a GET request to get currently running entries', function () use ($clo
         '*' => Http::response([]),
     ]);
 
-    $clocks = new Clocks();
+    $clockodoApiService = new ClockodoApiService($clockodoHeaders, $clockodoApiUrl);
+    $clocks = new Clocks($clockodoApiService);
 
     // Act
     $clocks->currentlyRunning();
@@ -27,7 +29,7 @@ it('sends a GET request to get currently running entries', function () use ($clo
     // Assert
     Http::assertSentCount(1);
     Http::assertSent(function (Request $request) use ($clockodoApiUrl, $clockodoHeaders) {
-        $mockRequestUrl = $clockodoApiUrl.'v2/clock';
+        $mockRequestUrl = $clockodoApiUrl . 'v2/clock';
 
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'GET' &&
@@ -48,7 +50,8 @@ it('sends a POST request to start a clock', function () use ($clockodoHeaders, $
         '*' => Http::response([]),
     ]);
 
-    $clocks = new Clocks();
+    $clockodoApiService = new ClockodoApiService($clockodoHeaders, $clockodoApiUrl);
+    $clocks = new Clocks($clockodoApiService);
 
     // Act
     $clocks->start($mockCustomersId, $mockServicesId, $mockOptionalParameters);
@@ -61,7 +64,7 @@ it('sends a POST request to start a clock', function () use ($clockodoHeaders, $
             'services_id' => $mockServicesId,
             ...$mockOptionalParameters,
         ];
-        $mockRequestUrl = $clockodoApiUrl.'v2/clock';
+        $mockRequestUrl = $clockodoApiUrl . 'v2/clock';
 
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'POST' &&
@@ -79,7 +82,8 @@ it('sends a DELETE request to stop the clock', function () use ($clockodoHeaders
         '*' => Http::response([]),
     ]);
 
-    $clocks = new Clocks();
+    $clockodoApiService = new ClockodoApiService($clockodoHeaders, $clockodoApiUrl);
+    $clocks = new Clocks($clockodoApiService);
 
     // Act
     $clocks->stop($mockClockId, $mockUsersId);
@@ -90,7 +94,7 @@ it('sends a DELETE request to stop the clock', function () use ($clockodoHeaders
         $mockData = [
             'users_id' => $mockUsersId,
         ];
-        $mockRequestUrl = $clockodoApiUrl.'v2/clock/'.$mockClockId;
+        $mockRequestUrl = $clockodoApiUrl . 'v2/clock/' . $mockClockId;
 
         return $request->url() == $mockRequestUrl &&
             $request->method() === 'DELETE' &&
