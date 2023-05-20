@@ -2,19 +2,16 @@
 
 namespace Fs98\ClockodoClient\Clocks;
 
-use Illuminate\Support\Facades\Config;
+use Fs98\ClockodoClient\Services\ClockodoApiService;
 use Illuminate\Support\Facades\Http;
 
 class Clocks
 {
-    protected $clockodoHeaders;
+    protected $clockodoApiService;
 
-    protected $clockodoApiUrl;
-
-    public function __construct()
+    public function __construct(ClockodoApiService $clockodoApiService)
     {
-        $this->clockodoHeaders = Config::get('clockodo-client.headers');
-        $this->clockodoApiUrl = Config::get('clockodo-client.api_url');
+        $this->clockodoApiService = $clockodoApiService;
     }
 
     /**
@@ -24,7 +21,7 @@ class Clocks
     {
         return Http::withHeaders($this->clockodoHeaders)
             ->get(
-                $this->clockodoApiUrl.'/v2/clock'
+                $this->clockodoApiUrl . '/v2/clock'
             )->json();
     }
 
@@ -46,7 +43,7 @@ class Clocks
     {
         return Http::withHeaders($this->clockodoHeaders)
             ->post(
-                $this->clockodoApiUrl.'/v2/clock',
+                $this->clockodoApiUrl . '/v2/clock',
                 [
                     'customers_id' => $customersId,
                     'services_id' => $servicesId,
@@ -65,7 +62,7 @@ class Clocks
     {
         return Http::withHeaders($this->clockodoHeaders)
             ->delete(
-                $this->clockodoApiUrl.'/v2/clock/'.$clockId,
+                $this->clockodoApiUrl . '/v2/clock/' . $clockId,
                 [
                     'users_id' => $usersId,
                 ]
