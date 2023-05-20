@@ -24,9 +24,9 @@ class ClockodoApiService implements ClockodoApiInterface
         return $this->clockodoHeaders;
     }
 
-    public function getApiUrl($endpoint): string
+    public function getApiUrl(string $endpoint): string
     {
-        return rtrim($this->clockodoApiUrl, '/').'/'.ltrim($endpoint, '/');
+        return rtrim($this->clockodoApiUrl, '/') . '/' . ltrim($endpoint, '/');
     }
 
     public function performRequest(string $method, string $endpoint, array $data = []): array
@@ -36,23 +36,23 @@ class ClockodoApiService implements ClockodoApiInterface
             ->json();
     }
 
-    public function performGetRequest($endpoint, $data = []): array
+    public function performGetRequest(string $endpoint, array $data = []): array
     {
         return $this->performRequest('get', $endpoint, $data);
     }
 
-    public function performPostRequest($endpoint, $data = []): array
+    public function performPostRequest(string $endpoint, array $data = []): array
     {
         return $this->performRequest('post', $endpoint, $data);
     }
 
-    public function performPutRequest($endpoint, $data = []): array
+    public function performPutRequest(string $endpoint, array $data = []): array
     {
         return $this->performRequest('put', $endpoint, $data);
     }
 
-    public function performDeleteRequest($endpoint): array
+    public function performDeleteRequest(string $endpoint, array $data = []): array
     {
-        return $this->performRequest('delete', $endpoint);
+        return $this->performRequest('delete', $endpoint, $data);
     }
 }
