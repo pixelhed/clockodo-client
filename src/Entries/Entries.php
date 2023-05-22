@@ -106,7 +106,7 @@ class Entries
      */
     public function edit(int $id, array $optionalParameters = []): array
     {
-        return [];
+        return $this->clockodoApiService->performPutRequest('v2/entries/' . $id, $optionalParameters);
     }
 
     /**
