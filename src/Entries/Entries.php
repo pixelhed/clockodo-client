@@ -50,7 +50,7 @@ class Entries
      */
     public function getOne(int $entryId): array
     {
-        return [];
+        return $this->clockodoApiService->performGetRequest('v2/entries/' . $entryId);
     }
 
     /**
