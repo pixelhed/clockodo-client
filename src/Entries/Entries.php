@@ -116,6 +116,6 @@ class Entries
      */
     public function delete(int $id): array
     {
-        return [];
+        return $this->clockodoApiService->performDeleteRequest('v2/entries/' . $id);
     }
 }
