@@ -70,9 +70,18 @@ class Entries
      *        - text (string|null) Description text.
      * 
      */
-    public function create(int $customersId, int $servicesId, int $billable, string $time_since, string $time_until = null, array $optionalParameters = []): array
+    public function create(int $customersId, int $servicesId, int $billable, string $timeSince, string $timeUntil = null, array $optionalParameters = []): array
     {
-        return [];
+        $data = [
+            'customers_id' => $customersId,
+            'services_id' => $servicesId,
+            'billable' => $billable,
+            'time_since' => $timeSince,
+            'time_until' => $timeUntil,
+            ...$optionalParameters
+        ];
+
+        return $this->clockodoApiService->performPostRequest('v2/entries', $data);
     }
 
     /**
