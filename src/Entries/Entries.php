@@ -34,7 +34,13 @@ class Entries
      */
     public function get(string $timeSince, string $timeUntil, array $optionalParameters = []): array
     {
-        return [];
+        $data = [
+            'time_since' => $timeSince,
+            'time_until' => $timeUntil,
+            ...$optionalParameters
+        ];
+
+        return $this->clockodoApiService->performGetRequest('v2/entries', $data);
     }
 
     /**
@@ -54,7 +60,7 @@ class Entries
      * @param  int $servicesId ID of the corresponding service.
      * @param  int $billable Is the entry billable?
      *        0: not billable, 1: billable, 2: already billed
-     * @param  string $time_since Starting time.
+     * @param  string $time_since Starting time in format ISO 8601 UTC, e.g. "2021-06-30T12:34:56Z".
      * @param  string|null $time_until End time, NULL if entry is running.
      * @param  array $optionalParameters Additional optional parameters:
      *        - users_id: (integer|null) ID of the corresponding co-worker.
