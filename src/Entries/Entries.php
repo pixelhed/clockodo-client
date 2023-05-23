@@ -56,13 +56,13 @@ class Entries
     /**
      * Add entry
      *
-     * @param  int $customersId ID of the corresponding customer.
-     * @param  int $servicesId ID of the corresponding service.
-     * @param  int $billable Is the entry billable?
+     * @param int $customersId ID of the corresponding customer.
+     * @param int $servicesId ID of the corresponding service.
+     * @param int $billable Is the entry billable?
      *        0: not billable, 1: billable, 2: already billed
-     * @param  string $time_since Starting time in format ISO 8601 UTC, e.g. "2021-06-30T12:34:56Z".
-     * @param  string|null $time_until End time, NULL if entry is running.
-     * @param  array $optionalParameters Additional optional parameters:
+     * @param string $timeSince Starting time in format ISO 8601 UTC, e.g. "2021-06-30T12:34:56Z".
+     * @param string|null $timeUntil End time, NULL if entry is running.
+     * @param array $optionalParameters Additional optional parameters:
      *        - users_id: (integer|null) ID of the corresponding co-worker.
      *        - duration (integer|null) Duration of the entry in seconds.
      *        - hourly_rate (float) Hourly rate.
@@ -87,8 +87,8 @@ class Entries
     /**
      * Edit entry
      *
-     * @param  int  $id ID of the entry.
-     * @param  array  $optionalParameters Additional optional parameters:
+     * @param  int $id ID of the entry.
+     * @param  array $optionalParameters Additional optional parameters:
      *        - customers_id (integer) ID of the corresponding customer.
      *        - projects_id (integer|null) ID of the corresponding project.
      *        - services_id (integer) ID of the corresponding service.
@@ -112,7 +112,7 @@ class Entries
     /**
      * Delete entry
      *
-     * @param  int  $id ID of the entry.
+     * @param int $id ID of the entry.
      */
     public function delete(int $id): array
     {
